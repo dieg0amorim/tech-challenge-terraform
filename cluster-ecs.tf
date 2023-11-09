@@ -106,9 +106,9 @@ resource "aws_ecs_service" "my_service" {
 #  desired_count = 1
 
   network_configuration {
-    subnets = [aws_subnet.public_subnet.id]
-    security_groups = [aws_security_group.security_group.id]
+    subnets = ["subnet-05726759a2fb03543"]
+    security_groups = ["sg-08c50fced7a49f795"]
     assign_public_ip = true
-   
+    
   }
 }
