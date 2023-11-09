@@ -1,3 +1,28 @@
+# Use a VPC e subnet pública existentes
+data "aws_vpc" "vpc" {
+  id = aws_vpc.vpc.id
+}
+
+/*
+data "aws_subnet" "public_subnet" {
+  vpc_id = data.aws_vpc.vpc.id
+}*/
+
+data "aws_subnet" "public_subnet" {
+  filter {
+    name   = "vpc-id"
+    values = [aws_vpc.vpc.id]
+  }
+  filter {
+    name   = "cidr-block"
+    values = ["192.168.100.0/24"]
+  }
+}
+
+data "aws_security_group" "security_group" {
+  id = aws_security_group.security_group.id
+}
+
 data "aws_secretsmanager_secret" "db_credentials" {
   name = "secret.ecs"
 }
@@ -26,7 +51,9 @@ resource "aws_db_instance" "rds" {
   skip_final_snapshot = true
 
   # Configuração de segurança
-  vpc_security_group_ids = ["sg-08c50fced7a49f795"]
+  vpc_security_group_ids = [aws_security_group.security_group.id]
+  db_subnet_group_name = aws_db_subnet_group.example.name
+  
 
 }
 

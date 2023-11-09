@@ -82,14 +82,14 @@ resource "aws_ecs_task_definition" "my_task" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "techchallenge-log-group",
+        "awslogs-group": "techchallenge3-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "tech-challenge"
+        "awslogs-stream-prefix": "tech-challenge3"
       }
     },     
     "secrets": [
       {
-        "valueFrom": "arn:aws:secretsmanager:us-east-1:961820325724:secret:secret.ecs-tTFcf3",
+        "valueFrom": "arn:aws:secretsmanager:us-east-1:584073813287:secret:secret.ecs-tTFcf3",
         "name": "secret.ecs"
       }
     ]
@@ -106,9 +106,9 @@ resource "aws_ecs_service" "my_service" {
 #  desired_count = 1
 
   network_configuration {
-    subnets = ["subnet-05726759a2fb03543"]
-    security_groups = ["sg-08c50fced7a49f795"]
+    subnets = [aws_subnet.public_subnet.id]
+    security_groups = [aws_security_group.security_group.id]
     assign_public_ip = true
-    
+   
   }
 }
