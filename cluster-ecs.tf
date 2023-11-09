@@ -58,7 +58,7 @@ resource "aws_iam_role_policy_attachment" "ecs_execution_policy_attachment" {
 }
 
 resource "aws_ecs_task_definition" "my_task" {
-  family                   = "my-task-app"
+  family                   = "my-task-app3"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
