@@ -1,4 +1,4 @@
-/*resource "aws_ecs_cluster" "my_cluster" {
+resource "aws_ecs_cluster" "my_cluster" {
   name = "cluster-techchallenge"
 }
 
@@ -72,7 +72,7 @@ resource "aws_ecs_task_definition" "my_task" {
 [
   {
     "name": "my-container",
-    "image": "pedrovcorsino/tech_challenge:latest",
+    "image": "pedrovcorsino/tech_challenge:pedidos",
     "portMappings": [
       {
         "containerPort": 8080,
@@ -89,7 +89,7 @@ resource "aws_ecs_task_definition" "my_task" {
     },     
     "secrets": [
       {
-        "valueFrom": "arn:aws:secretsmanager:us-east-1:584073813287:secret:secret.ecs-tTFcf3",
+        "valueFrom": "arn:aws:secretsmanager:us-east-1:905953580369:secret:secret.ecs-tTFcf3",
         "name": "secret.ecs"
       }
     ]
@@ -112,4 +112,3 @@ resource "aws_ecs_service" "my_service" {
    
   }
 }
-*/

@@ -1,13 +1,13 @@
-/*
 # Use a VPC e subnet pública existentes
 data "aws_vpc" "vpc" {
   id = aws_vpc.vpc.id
 }
 
-
+/*
 data "aws_subnet" "public_subnet" {
   vpc_id = data.aws_vpc.vpc.id
 }
+*/
 
 data "aws_subnet" "public_subnet" {
   filter {
@@ -25,7 +25,7 @@ data "aws_security_group" "security_group" {
 }
 
 data "aws_secretsmanager_secret" "db_credentials" {
-  name = "secret.ecs"
+  name = "secrets.ecs"
 }
 
 data "aws_secretsmanager_secret_version" "latest" {
@@ -57,4 +57,4 @@ resource "aws_db_instance" "rds" {
   
 
 }
-*/
+

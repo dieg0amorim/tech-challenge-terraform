@@ -1,4 +1,3 @@
-/*
 # Crie uma VPC
 resource "aws_vpc" "vpc" {
   cidr_block = "192.168.0.0/16"
@@ -41,7 +40,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 
 resource "aws_security_group" "security_group" {
   name        = "sg para bd e ecs"
-  description = "Security Group para liberacao de portas do ecs e banco de dados"
+  description = "Security Group para liberacao de portas do ecs e bancos de dados"
 
   # Regras de entrada
   ingress {
@@ -54,6 +53,13 @@ resource "aws_security_group" "security_group" {
   ingress {
     from_port   = 8080
     to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
+  }
+
+  ingress {
+    from_port   = 6379
+    to_port     = 6379
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
   }
@@ -76,4 +82,3 @@ resource "aws_db_subnet_group" "example" {
   subnet_ids  = [aws_subnet.public_subnet.id,aws_subnet.example_public2.id]
   description = "DB Subnet Group para meu banco de dados RDS"
 }
-*/
