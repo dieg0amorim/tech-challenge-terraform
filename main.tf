@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "my-unique-bucket-nameds4ahudsahudsaa2385dg"  # Substitua pelo nome desejado
+  bucket = "my-unique-bucket-nameds4ahudasaa2385dg"  # Substitua pelo nome desejado
 }
 
 resource "aws_s3_bucket" "example_bucket-2" {
