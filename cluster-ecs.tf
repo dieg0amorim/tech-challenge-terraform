@@ -1,4 +1,4 @@
-resource "aws_ecs_cluster" "my_cluster" {
+/*resource "aws_ecs_cluster" "my_cluster" {
   name = "cluster-techchallenge"
 }
 
@@ -112,3 +112,4 @@ resource "aws_ecs_service" "my_service" {
    
   }
 }
+*/
