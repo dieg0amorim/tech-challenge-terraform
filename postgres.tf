@@ -25,7 +25,7 @@ data "aws_security_group" "security_group" {
 }
 
 data "aws_secretsmanager_secret" "db_credentials" {
-  name = "secret.ecs"
+  name = "secrets.ecs"
 }
 
 data "aws_secretsmanager_secret_version" "latest" {
