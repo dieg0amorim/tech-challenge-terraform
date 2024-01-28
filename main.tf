@@ -21,5 +21,5 @@ resource "aws_s3_bucket" "example_bucket" {
 }
 
 resource "aws_s3_bucket" "example_bucket-2" {
-  bucket = "my-unique-bucket-nameds4ahudsahudsaa2385dg-2"  # Substitua pelo nome desejado
+  bucket = "my-unique-bucket-nameds4tttahudsahudsaa2385dg-2"  # Substitua pelo nome desejado
 }
