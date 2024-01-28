@@ -1,12 +1,13 @@
+/*
 # Use a VPC e subnet pública existentes
 data "aws_vpc" "vpc" {
   id = aws_vpc.vpc.id
 }
 
-/*
+
 data "aws_subnet" "public_subnet" {
   vpc_id = data.aws_vpc.vpc.id
-}*/
+}
 
 data "aws_subnet" "public_subnet" {
   filter {
@@ -56,4 +57,4 @@ resource "aws_db_instance" "rds" {
   
 
 }
-
+*/

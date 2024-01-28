@@ -1,3 +1,4 @@
+/*
 # Crie uma VPC
 resource "aws_vpc" "vpc" {
   cidr_block = "192.168.0.0/16"
@@ -75,3 +76,4 @@ resource "aws_db_subnet_group" "example" {
   subnet_ids  = [aws_subnet.public_subnet.id,aws_subnet.example_public2.id]
   description = "DB Subnet Group para meu banco de dados RDS"
 }
+*/

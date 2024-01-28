@@ -1,4 +1,4 @@
-resource "aws_ecs_cluster" "my_cluster" {
+/*resource "aws_ecs_cluster" "my_cluster" {
   name = "cluster-techchallenge"
 }
 
@@ -86,7 +86,13 @@ resource "aws_ecs_task_definition" "my_task" {
         "awslogs-region": "us-east-1",
         "awslogs-stream-prefix": "tech-challenge3"
       }
-    }
+    },     
+    "secrets": [
+      {
+        "valueFrom": "arn:aws:secretsmanager:us-east-1:584073813287:secret:secret.ecs-tTFcf3",
+        "name": "secret.ecs"
+      }
+    ]
   }
 ]  
 EOF
@@ -106,3 +112,4 @@ resource "aws_ecs_service" "my_service" {
    
   }
 }
+*/
