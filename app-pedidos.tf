@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "financeiro" {
-  family                   = "my-task-financeiro"
+resource "aws_ecs_task_definition" "my_task-pedidos" {
+  family                   = "my-task-pedidos"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -7,13 +7,13 @@ resource "aws_ecs_task_definition" "financeiro" {
   memory = "4096"  # 4GB de memória
   depends_on = [ aws_cloudwatch_log_group.example ]
   
-  
+
 
   container_definitions = <<EOF
 [
   {
     "name": "my-container",
-    "image": "pedrovcorsino/tech_challenge:financeiro",
+    "image": "pedrovcorsino/tech_challenge:pedidos",
     "portMappings": [
       {
         "containerPort": 8080,
@@ -39,8 +39,8 @@ resource "aws_ecs_task_definition" "financeiro" {
 EOF
 }
 
-resource "aws_ecs_service" "financeiro_service" {
-  name            = "financeiro-service"
+resource "aws_ecs_service" "my_service_pedidos" {
+  name            = "pedidos-service"
   cluster         = aws_ecs_cluster.my_cluster.id
   task_definition = aws_ecs_task_definition.my_task.arn
   launch_type     = "FARGATE"
