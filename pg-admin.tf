@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "my_task-pedidos" {
-  family                   = "my-task-pedidos"
+resource "aws_ecs_task_definition" "my_task-pg-admin" {
+  family                   = "my-task-pg-admin"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -13,36 +13,30 @@ resource "aws_ecs_task_definition" "my_task-pedidos" {
 [
   {
     "name": "my-container",
-    "image": "pedrovcorsino/tech_challenge:pedidos",
+    "image": "dpage/pgadmin4",
     "portMappings": [
       {
-        "containerPort": 8080,
-        "hostPort": 8080
+        "containerPort": 5050,
+        "hostPort": 5050
       }
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "techchallenge3-log-group",
+        "awslogs-group": "hackathon-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "tech-challenge3"
+        "awslogs-stream-prefix": "hackathon"
       }
-    },     
-    "secrets": [
-      {
-        "valueFrom": "arn:aws:secretsmanager:us-east-1:905953580369:secret:secret.ecs-tTFcf3",
-        "name": "secret.ecs"
-      }
-    ]
+    }
   }
 ]  
 EOF
 }
 
-resource "aws_ecs_service" "my_service_pedidos" {
-  name            = "pedidos-service"
+resource "aws_ecs_service" "my_service_pg-admin" {
+  name            = "pg-admin-service"
   cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task-pedidos.arn
+  task_definition = aws_ecs_task_definition.my_task-pg-admin.arn
   launch_type     = "FARGATE"
 #  desired_count = 1
 

@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "my_cluster" {
-  name = "cluster-techchallenge"
+  name = "cluster-hackathon"
 }
 
 resource "aws_iam_role" "ecs_execution_role" {

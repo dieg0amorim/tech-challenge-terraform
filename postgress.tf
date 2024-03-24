@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "my_task-pagamentos" {
-  family                   = "my-task-pagamentos"
+resource "aws_ecs_task_definition" "banco_postgress" {
+  family                   = "my-task-banco-postgress"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -13,36 +13,30 @@ resource "aws_ecs_task_definition" "my_task-pagamentos" {
 [
   {
     "name": "my-container",
-    "image": "pedrovcorsino/tech_challenge:pagamento",
+    "image": "postgress:latest",
     "portMappings": [
       {
-        "containerPort": 8080,
-        "hostPort": 8080
+        "containerPort": 5432,
+        "hostPort": 5432
       }
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "techchallenge3-log-group",
+        "awslogs-group": "hackathon-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "tech-challenge3"
+        "awslogs-stream-prefix": "hackathon"
       }
-    },     
-    "secrets": [
-      {
-        "valueFrom": "arn:aws:secretsmanager:us-east-1:905953580369:secret:secret.ecs-tTFcf3",
-        "name": "secret.ecs"
-      }
-    ]
+    }
   }
 ]  
 EOF
 }
 
-resource "aws_ecs_service" "pagamentos_service" {
-  name            = "pagamentos-service"
+resource "aws_ecs_service" "postgress_service" {
+  name            = "postgress-service"
   cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task-pagamentos.arn
+  task_definition = aws_ecs_task_definition.banco_postgress.arn
   launch_type     = "FARGATE"
 #  desired_count = 1
 

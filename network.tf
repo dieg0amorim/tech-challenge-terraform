@@ -44,8 +44,8 @@ resource "aws_security_group" "security_group" {
 
   # Regras de entrada
   ingress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 15672
+    to_port     = 15672
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
   }
@@ -58,8 +58,22 @@ resource "aws_security_group" "security_group" {
   }
 
   ingress {
-    from_port   = 6379
-    to_port     = 6379
+    from_port   = 5672
+    to_port     = 5672
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
+  }
+
+  ingress {
+    from_port   = 5050
+    to_port     = 5050
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
+  }
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
   }
@@ -80,5 +94,5 @@ resource "aws_security_group" "security_group" {
 resource "aws_db_subnet_group" "example" {
   name        = "meudbsubnetgroup" # Nome em letras minúsculas
   subnet_ids  = [aws_subnet.public_subnet.id,aws_subnet.example_public2.id]
-  description = "DB Subnet Group para meu banco de dados RDS"
+  description = "DB Subnet Group para meu banco"
 }
