@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "my_task-producao" {
-  family                   = "my-task-producao"
+resource "aws_ecs_task_definition" "my_task-pontomenos" {
+  family                   = "my-task-pontomenos"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -7,13 +7,13 @@ resource "aws_ecs_task_definition" "my_task-producao" {
   memory = "4096"  # 4GB de memória
   depends_on = [ aws_cloudwatch_log_group.example ]
   
-
+  
 
   container_definitions = <<EOF
 [
   {
     "name": "my-container",
-    "image": "pedrovcorsino/tech_challenge:producao",
+    "image": "pedrovcorsino/tech_challenge:pontomenos",
     "portMappings": [
       {
         "containerPort": 8080,
@@ -23,26 +23,20 @@ resource "aws_ecs_task_definition" "my_task-producao" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "techchallenge3-log-group",
+        "awslogs-group": "hackathon-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "tech-challenge3"
+        "awslogs-stream-prefix": "hackathon"
       }
-    },     
-    "secrets": [
-      {
-        "valueFrom": "arn:aws:secretsmanager:us-east-1:905953580369:secret:secret.ecs-tTFcf3",
-        "name": "secret.ecs"
-      }
-    ]
+    }
   }
 ]  
 EOF
 }
 
-resource "aws_ecs_service" "my_service_producao" {
-  name            = "producao-service"
+resource "aws_ecs_service" "pontomenos_service" {
+  name            = "pontomenos-service"
   cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task-producao.arn
+  task_definition = aws_ecs_task_definition.my_task-pontomenos.arn
   launch_type     = "FARGATE"
 #  desired_count = 1
 
