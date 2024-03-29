@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "my_task-producao" {
       "options": {
         "awslogs-group": "tech-challenge-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "producao"
+        "awslogs-stream-prefix": "producao2"
       }
     }
   }
