@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "my_task-rabbit" {
-  family                   = "my-task-rabbit"
+resource "aws_ecs_task_definition" "my_task-postgres" {
+  family                   = "my-task-postgres"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -13,15 +13,11 @@ resource "aws_ecs_task_definition" "my_task-rabbit" {
 [
   {
     "name": "my-container",
-    "image": "rabbitmq:3-management",
+    "image": "postgres:latest",
     "portMappings": [
       {
-        "containerPort": 15672,
-        "hostPort": 15672
-      },
-      {
-        "containerPort": 5672,
-        "hostPort": 5672
+        "containerPort": 5432,
+        "hostPort": 5432
       }
     ],
     "logConfiguration": {
@@ -29,7 +25,7 @@ resource "aws_ecs_task_definition" "my_task-rabbit" {
       "options": {
         "awslogs-group": "tech-challenge-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "rabbit"
+        "awslogs-stream-prefix": "postgres"
       }
     }
   }
@@ -37,10 +33,10 @@ resource "aws_ecs_task_definition" "my_task-rabbit" {
 EOF
 }
 
-resource "aws_ecs_service" "my_service_rabbit" {
-  name            = "rabbit-service"
+resource "aws_ecs_service" "my_service_postgres" {
+  name            = "postgres-service"
   cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task-rabbit.arn
+  task_definition = aws_ecs_task_definition.my_task-postgres.arn
   launch_type     = "FARGATE"
 #  desired_count = 1
 
