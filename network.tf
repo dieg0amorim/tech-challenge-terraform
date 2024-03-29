@@ -65,8 +65,8 @@ resource "aws_security_group" "security_group" {
   }
 
   ingress {
-    from_port   = 5050
-    to_port     = 5050
+    from_port   = 6379
+    to_port     = 6379
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Isso permite o acesso de qualquer endereço
   }

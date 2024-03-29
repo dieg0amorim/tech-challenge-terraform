@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "my_task-pg-admin" {
-  family                   = "my-task-pg-admin"
+resource "aws_ecs_task_definition" "my_task-pedidos" {
+  family                   = "my-task-pedidos"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
@@ -7,25 +7,25 @@ resource "aws_ecs_task_definition" "my_task-pg-admin" {
   memory = "4096"  # 4GB de memória
   depends_on = [ aws_cloudwatch_log_group.example ]
   
-
+  
 
   container_definitions = <<EOF
 [
   {
     "name": "my-container",
-    "image": "dpage/pgadmin4",
+    "image": "pedrovcorsino/tech_challenge:pedidos",
     "portMappings": [
       {
-        "containerPort": 5050,
-        "hostPort": 5050
+        "containerPort": 8080,
+        "hostPort": 8080
       }
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "hackathon-log-group",
+        "awslogs-group": "tech-challenge-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "hackathon"
+        "awslogs-stream-prefix": "pedidos"
       }
     }
   }
@@ -33,10 +33,10 @@ resource "aws_ecs_task_definition" "my_task-pg-admin" {
 EOF
 }
 
-resource "aws_ecs_service" "my_service_pg-admin" {
-  name            = "pg-admin-service"
+resource "aws_ecs_service" "pedidos_service" {
+  name            = "pedidos-service"
   cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task-pg-admin.arn
+  task_definition = aws_ecs_task_definition.my_task-pedidos.arn
   launch_type     = "FARGATE"
 #  desired_count = 1
 
