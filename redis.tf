@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "my_task-redis" {
       "options": {
         "awslogs-group": "tech-challenge-log-group",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "redis-1"
+        "awslogs-stream-prefix": "redis-2"
       }
     }
   }
